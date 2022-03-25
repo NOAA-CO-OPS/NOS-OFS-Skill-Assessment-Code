@@ -1,0 +1,139 @@
+################################################################################
+#   BEGINDATE:   the begining date: "yyyy mm dd hh mn"
+#   ENDDATE:     the end date:    "yyyy mm dd hh mn"
+#   OS           =1, run in Unix, fortran codes are compiled using F90.
+#                =0, run in Linux, Frotran codes are compiled using LF95. 
+#   NTYPE        =0 for non-tidal region; =1 for tidal regions.
+#   FACTOR       used for event selection of non-tidal region.
+#                =<0.0 hupper=factor,hlower=-factor
+#                >=0.0 hupper=mean +factor * SD ,hlower=mean -factor * SD.
+#   DBASE        Four options: "NWLON", "PORTS", "GLAKES", and "USGS"
+#  KINDAT      =1 for vector data (current speed and direction);
+#              =2 for scalar data (water level)
+#              =3 for temperature
+#              =4 for salinity
+#   NCYCLE_T:    number of tide simulation cycles per day, =0 read from a single file
+#   NCYCLE_H:    number of hindcast cycles per day, =0 read from a single file
+#   NCYCLE_N:    number of nowcast cycles per day, >=1
+#   NCYCLE_F:    number of forecast cycles per day, >=1
+#   DELT:       desired time interval (in minutes) of observation, tide prediction and model outputs.
+#   DELT_O:     actual time interval (in minutes) of observation, tide prediction
+#   DELT_M:     actual time interval (in minutes) of model outputs.
+#   CUTOFF:     CUTOFF period (in hours) for Fourier filtering, =0 no filtering
+#   IGAPFILL:   control switch of gap filling with interpolation 
+#               =0, filling with missing value -999.0;
+#               =1, filling with interpolation value
+#   METHOD:     index of interpolation method
+#               0: cubic spline  1:Singular Value Decomposition(SVD); 
+#   CRITERIA1:  (in hours)means using linear and cubic spline interpolation
+#                when gap is less than criteria1    
+#   CRITERIA2:  (in hours) means using cubic spline or SVD interpolation method
+#                when criteria1 < gap < criteria2.
+#               fill gaps using missing value -999.0 while gap > criteria2
+#   IS:         control model run scenorios. =0,off; =1, on
+#              IS(1): Tidal simulation only    
+#              IS(2): model hindcast
+#              IS(3): semi-operational nowcast
+#              IS(4): semi-operational forecast
+#              IS(5): persistence forecast
+#              IS(6): tidal prediction
+#  IPRT:       print switch. =0, no screen output; =1 screen output 
+#  DELHR:      maximum allowed time difference between high and low,
+#              if small than delhr, eliminate both high and low.
+#  DELAMP:     maximum allowed amplitude difference between high and low,
+#              if smaller, eliminate both
+#  DELPCT:     maximum allowed fraction of amplitude difference between high and low
+#  IOPTA:      option for selecting amplitude criterion
+#              =1, delamp=delamp
+#              =2, delamp=delpct*(hmax-hmin)
+#              =3,delamp=delpct*(average hmax)
+#  X1          accepted error criteria for water level (0.15 m),
+#              current (0.26 m/s), temperature (7.5 c),salinity (3.5 ppt)        
+#  X2          accepted error criteria for time (in hours)
+#  X11         accepted error criteria for phase (in degrees)
+# NCON        = number of constituents to be analyzed by H.A., maximum=37
+#****************************************************************
+#           Specify project path names
+#****************************************************************  
+   HOME1=/disks/NASWORK/SKILL_GLAKES
+   HOME1=/disks/odaasdisk4/azhang/SKILL
+#****************************************************************
+#          Specify required file names
+#****************************************************************
+
+#  station control file name
+   STATIONDATA=$HOME1/control_files/lake_erie_stationsdata.ctl
+ #  STATIONDATA=$HOME1/control_files/lake_michigan_stationsdata.ctl
+ #  STATIONDATA=$HOME1/control_files/lake_huron_stationsdata.ctl
+ #  STATIONDATA=$HOME1/control_files/lake_ontario_stationsdata.ctl
+ #  STATIONDATA=$HOME1/control_files/lake_superior_stationsdata.ctl
+
+ #  STATIONDATA=$HOME1/control_files/greatlakes_stationdata.ctl
+ #  STATIONDATA=$HOME1/control_files/SST_GLAKES_stations.ctl
+ #  STATIONDATA=$HOME1/control_files/cbofsstationdata.ctl
+
+# Tide Simulations
+   MODELTIDES=$HOME1/archive/cbofstide.nc
+   MODELTIDES=$HOME1/archive/ROMS_DRB_stations_report.nc
+# or NCYCLE_T >0
+   ARCHIVE_DIR_T=/archive/testtide
+   NAME_TIDECAST="%Y%m/%Y%m%d%H%Mp_GLCFS-E_stationsnow.nc"
+
+# Hindcast Simulation
+   HINDCAST=$HOME1/archive/CBOFSHIND.nc
+# or NCYCLE_H >0
+   ARCHIVE_DIR_H=/archive/testdir
+   NAME_HINDCAST="%Y%m/%Y%m%d%H%M_GLCFS-E_stationsnow.nc"
+
+# Nowcast and Forecast Runs
+   ARCHIVE_DIR=$HOME1/archive/leofs
+   ARCHIVE_DIR=/disks/odaasdisk1/COMF/SKILL_GLAKES/archive/leofs-nam
+   NAME_NOWCAST="%Y%m%d%H%M_LEOFS_stations_nowcast.nc"
+#   NAME_NOWCAST="%Y%m/%Y%m%d%H%M_LEOFS_stations_nowcast.nc"
+   NAME_FORECAST="%Y%m%d%H%M_LEOFS_stations_forecast.nc"
+
+#****************************************************************
+#          Specify required parameters
+#****************************************************************
+#   BEGINDATE="2004 04 20 00 00"    #SST
+#   ENDDATE="2004  12  17  23 00"
+   BEGINDATE="2006 09 19 00 00" 
+   ENDDATE="2006 11 27 00 00"
+   OS=0
+   NTYPE=0
+   FACTOR=2.0
+   DBASE=GLAKES
+   KINDAT=2
+   NCYCLE_T=0
+   NCYCLE_H=0
+   NCYCLE_N=24
+   NCYCLE_F=4
+   DELT=6
+   DELT_O=6    # only 6 minutes data available for real time database
+   DELT_M=10
+   CUTOFF=3.0
+   IGAPFILL=1
+   METHOD=1
+   CRITERIA1=2
+   CRITERIA2=6
+   IS[1]=0
+   IS[2]=0
+   IS[3]=1
+   IS[4]=0
+   IS[5]=0
+   IS[6]=0
+   IPRT=0 
+   DELHR=8.0
+   DELAMP=0.030
+   DELPCT=0.03
+   IOPTA=3
+   X1=0.15      ## 0.15 for WL, 0.26 for Currents 3.0 for Temp.
+   X2=0.50
+   X11=22.5 
+   NCON=24
+#****************************************************************
+
+
+
+
+

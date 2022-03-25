@@ -1,0 +1,74 @@
+Spetember 18, 2009
+AIJUN ZHANG
+
+The skill assessment software has been updated. The major features implemented in the new version
+are:
+
+1. install skill assessment software in a common directory, mutiple users can run skill assessment for
+   different applications from user's local directory but sharing same SA software at the same time. Therefore, it
+   is much easier to maintain and update skill assessment software.
+2. New functionalities and control parameters have been added as follows:  
+
+The following features have been implemented for the new updated Version:
+
+1). Error criteria X1
+   
+   Besides constant error criteria for all stations, the error criteria X1 can be
+   calculated using percentage of tidal range if X1 is negative in the control file
+   of "my_parameters.ctl".
+   
+   X1 = -X1 * Trange/100.
+
+   where  Trange=MHW-MLW, MHW is height of mean high water, and MLW is height 
+   of mean low water.
+
+   Currently, this feature is implemented only for water level in tidal regions, 
+   but similar approach can be easily applied to temperature and salinity using
+   
+   Trange = maximum - mimimum
+
+2). offset adjustment (datum adjustment)
+
+   Model forecasts (simulations) can be adjusted by the offfset (datum) between observations
+   and model simulations for water level, temperature, and salinity before computing skill
+   assessment statistics.
+   The parameter "dirflood" in the station control file is used to specify the value of 
+   the adjustment for each station. For the previous version, the parameter "dirflood" is not 
+   used for a scalar variable (a dummy parameter for water level, temperature, and salinity). 
+   Where for this new version, "dirflood" has to be zero in the staiton control file if you
+   do not expect any adjustment.
+   The offset may be a difference between observations and model outputs, or the datum offset 
+   for water levels.
+
+      dirflood= offset (observation - model forecast)
+      
+      model forecast=model firecast + dirflood
+3). correspond with offset djustment, format of station control file is changed. The second line
+   of each station contains, 
+   
+   "Latitude  Longitude  PCD/offset  observed_depth  total_water_depth"
+
+     S01 TEMP_S1  "S1-outer Egmont Channel"     
+     27.6135  -82.7655    0.0   1.8   3.63    
+
+4). extend skill assessment for forecast duration from the previous 24 hours into a user specified length. 
+   The maximum forecast duration for skill assessment is currently set to be 5 days. This parameter 
+   is specified in my_parameters.ctl by parameter "NFDURATION". 
+
+
+5). incorporate ROMS standard station NetCDF outputs from tidal, hindcast, nowcast/forecast simulations.
+   The previous version can only handle NOS's standard station NetCDF outputs (under COMF), this updated 
+   version of skill assessment software can handle both NOS standard station NetCDF files and original 
+   ROMS standard station NetCDF outputs. subroutines to read ROMS standard station NetCDF outputs 
+   have been implemented. Currently, only ROMS standard sigma coordinate formula (using theta_s, 
+   theta_b, Tcline, hc) is implemented. Lyon's sigma coordinate formula has not been implemented yet.
+
+6). Adding a new parameter "TZ_MODEL" for time meridian adjustment of model outputs if time of model output 
+   is not in GMT/UTC. TZ_MODEL=0 if model output is in GMT; TZ_MODEL=75 if time of model output is in standard 
+   eastern time. 
+
+   This new version has been tested using one-month outputs from the operational SJROFS at CO-OPS, 
+   and tidal and hindcast simulations from TBOFS ROMS experimental runs.
+
+
+  
