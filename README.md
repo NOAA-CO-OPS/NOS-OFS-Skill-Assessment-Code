@@ -10,6 +10,9 @@ OFS are implemented in critical ports, harbors, estuaries, Great Lakes and coast
 capabilities to form a national backbone of real-time data, tidal predictions, data management and operational modeling. Currently, NOS operates a network of 15 OFS
 located along the coastal United States. 
 
+The skill assessment code includes Chesapeake Bay OFS (CBOFS) control files for water levels (wl), currents (cu), water temperature (temp), and salinity (salt)
+and the results of STEP2, STEP3, STEP6, STEP7, and STEP9 for a currents skill assessment analysis, as an example.
+
 ## NOAA Open Source Disclaimer
 This repository is a scientific product and is not official communication of the National Oceanic and Atmospheric Administration, or the United States Department of
 Commerce. All NOAA GitHub project code is provided on an 'as is' basis and the user assumes responsibility for its use. Any claims against the Department of Commerce
