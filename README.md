@@ -29,3 +29,5 @@ United States.
 
 ## For additional information
 Contact: Cristina Urizar, NOAA Center for Operational Oceanographic Products and Services, Cristina.Urizar@noaa.gov
+
+![image](https://user-images.githubusercontent.com/72229285/216712553-c1e4b2fa-4b6d-4eab-be0f-f7075b6151d1.png)
