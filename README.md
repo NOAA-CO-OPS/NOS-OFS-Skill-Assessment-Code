@@ -3,7 +3,7 @@
 This repository contains the skill assessment code used by NOAA's National Ocean Service (NOS) to validate NOS Operational Forecast Systems (OFSs).
 
 ## Overview
-NOS develops and operates OFSs that provide users with nowcast (analyses of near-present) and forecast guidance of water levels, currents, salinity and water
+NOS develops and operates OFS that provide users with nowcast (analyses of near-present) and forecast guidance of water levels, currents, salinity and water
 temperature out to a maximum of 120 hours, four times per day. 
 
 OFS are implemented in critical ports, harbors, estuaries, Great Lakes and coastal waters of the United States, and will join the NOS' operational oceanographic
