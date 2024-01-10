@@ -4,7 +4,7 @@ This repository contains the skill assessment code used by NOAA's National Ocean
 
 ## Overview
 NOS develops and operates OFSs that provide users with nowcast (analyses of near-present) and forecast guidance of water levels, currents, salinity and water
-temperature out to a minimum of 120 hours, four times per day. 
+temperature out to a maximum of 120 hours, four times per day. 
 
 OFS are implemented in critical ports, harbors, estuaries, Great Lakes and coastal waters of the United States, and will join the NOS' operational oceanographic
 capabilities to form a national backbone of real-time data, tidal predictions, data management and operational modeling. Currently, NOS operates a network of 15 OFS
